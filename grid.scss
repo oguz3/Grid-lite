@@ -1,0 +1,93 @@
+$base-gap: 2px;
+$base-col: 12;
+//Screen Sizes
+$media-queries:(
+  lg: '1024px',
+  md: '768px',
+  sm: '540px',
+);
+
+////////////////////////
+//Lite Grid
+////////////////////////
+.grid {
+	box-sizing: border-box;
+	display: grid;
+	&.no-gutter {
+		grid-gap: 0;
+		gap: 0;
+	}
+}
+
+@for $i from 1 through $base-col {
+	.grid-#{$i} {
+		grid-template-columns: repeat($i, minmax(0, 1fr));
+	}
+	.col-#{$i} {
+		grid-column: span $i/span $i;
+	}
+	.col-start-#{$i} {
+		grid-column-start: $i;
+	}
+	.col-end-#{$i} {
+		grid-column-end: $i;
+	}
+}
+
+@for $i from 1 through 16 {
+	.gap-#{$i} {
+		gap: $base-gap * $i;
+	}
+}
+
+//align
+.justify-start {
+	justify-content: flex-start;
+}
+.justify-end {
+	justify-content: flex-end;
+}
+.justify-center {
+	justify-content: center;
+}
+.justify-between {
+	justify-content: space-between;
+}
+.justify-around {
+	justify-content: space-around;
+}
+.justify-evenly {
+	justify-content: space-evenly;
+}
+.items-start {
+	align-items: flex-start;
+}
+.items-end {
+	align-items: flex-end;
+}
+.items-center {
+	align-items: center;
+}
+
+///////////////////
+// MEDIA QUERY LOOP
+///////////////////
+
+@each $key,$val in $media-queries{
+	@media only screen and (min-width: #{$val}) {
+		@for $i from 1 through 12 {
+			.#{$key}-grid-#{$i} {
+				grid-template-columns: repeat($i, minmax(0, 1fr));
+			}
+			.#{$key}-col-#{$i} {
+				grid-column: span $i/span $i;
+			}
+			.#{$key}-col-start-#{$i} {
+				grid-column-start: $i;
+			}
+			.#{$key}-col-end-#{$i} {
+				grid-column-end: $i;
+			}
+		}
+	}
+}
